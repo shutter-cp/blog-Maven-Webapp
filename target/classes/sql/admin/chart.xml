@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cp.blog.dao.admin.ChartDao">
+  		<select id="getDateList" resultType="Integer" parameterType="hashmap">
+  			SELECT
+				COUNT(`logs`.id)
+			FROM
+				`logs` INNER JOIN
+				page INNER JOIN
+				label
+			ON
+				`logs`.pageId = page.id
+			AND
+				page.labelId = label.id
+			AND
+				DATE_FORMAT(STR_TO_DATE(`logs`.time,'%Y-%m-%d %T'),' %w') = #{week}
+			AND
+				sortId = #{sortId}
+  		</select>
+  		
+  		<select id="getView" parameterType="Integer" resultType="Integer">
+	  		SELECT
+				COUNT(id)
+			FROM
+				`logs`
+			WHERE
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%H') &gt;= #{i}*2
+				AND
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%H') &lt;  (#{i}+1)*2
+  		</select>
+  		
+  		<select id="getCom" parameterType="Integer" resultType="Integer">
+	  		SELECT
+				COUNT(id)
+			FROM
+				`comment`
+			WHERE
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%H') &gt;= #{i}*2
+			AND
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%H') &lt;  (#{i}+1)*2
+  		</select>
+  		
+  		<select id="getWirte" parameterType="Integer" resultType="Integer">
+  			SELECT
+				COUNT(id)
+			FROM
+				`page`
+			WHERE
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%H') &gt;= #{i}*2
+			AND
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%H') &lt;  (#{i}+1)*2
+  		</select>
+  </mapper>

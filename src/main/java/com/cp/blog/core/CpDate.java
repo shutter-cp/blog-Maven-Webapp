@@ -154,6 +154,7 @@ public class CpDate {
 	 * @exception 
 	 * @since  1.0.0
 	 */
+	@SuppressWarnings("static-access")
 	public String changeTime(int time,String format) {
 		CpDate cpDate = new CpDate();
 		Calendar calendar = new GregorianCalendar();
@@ -162,4 +163,53 @@ public class CpDate {
 		return cpDate.getTimeFormat(calendar.getTime(), format);
 	}
 	
+	/**
+	 * 传入指定时间得到调整后的时间
+	 * 方法名：changeTime
+	 * 创建人：chenPeng
+	 * 时间：2018年12月24日-下午3:00:51 
+	 * 手机:17673111810
+	 * @param time
+	 * @param format
+	 * @param bTime
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	@SuppressWarnings("static-access")
+	public String changeTime(int time,String format,String bTime) {
+		CpDate cpDate = new CpDate();
+		Calendar calendar = new GregorianCalendar();
+		SimpleDateFormat bartDateFormat = new SimpleDateFormat(format);
+		
+		try {
+			date = bartDateFormat.parse(bTime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("传入的格式与时间格式不符合");
+		}
+		calendar.setTime(date);
+		calendar.add(calendar.DATE, time);
+		return cpDate.getTimeFormat(calendar.getTime(), format);
+	}
+	
+	public Integer getWeekNub(String strWeek){
+		if (strWeek.equals("星期一")) {
+			return 1;
+		}else if (strWeek.equals("星期二")) {
+			return 2;
+		}else if (strWeek.equals("星期三")) {
+			return 3;
+		}else if (strWeek.equals("星期四")) {
+			return 4;
+		}else if (strWeek.equals("星期五")) {
+			return 5;
+		}else if (strWeek.equals("星期六")) {
+			return 6;
+		}else if (strWeek.equals("星期日")) {
+			return 7;
+		}
+		return null;
+	}
 }

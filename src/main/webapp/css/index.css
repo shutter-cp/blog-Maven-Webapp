@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+*{
+	margin:0;
+}
+body{
+	overflow-y: hidden;overflow-x: hidden;
+}
+#menu i{
+	float: left;
+}
+
+#myMenu{
+	width: 120px;
+}
+#myMain{
+	margin-left: 120px; 
+}
+#main-right{
+	overflow-y: inherit ;overflow-x: hidden;
+	padding: 10px;
+}
+#main-left{
+	overflow-y: auto;overflow-x: hidden;
+}
+#myMain-left{
+	width: 30%;
+}
+#myMain-right{
+	width: 70%;
+}
+@media screen and (max-device-width: 600px){
+	
+	
+}
+.myButton{
+	position: fixed;
+	right: -15px;
+	top: 2px;
+	opacity:0.4;
+	filter:alpha(opacity=40);
+}
+.myButton button{
+	margin-top: 3px;
+}
+
+
+.fond{
+	margin-top: -10px;
+}
+.fondButton button{
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+.myList{
+	padding-bottom: 100px;
+}
+.myFY{
+	position: fixed;
+	padding-left: 1%;
+	bottom: 10px;
+}
+.myTime{
+	
+}
+#myMain-right{
+	cursor: url('img/mos.ico'),auto;
+}
+.mainText{
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+.myCom{
+	width: 100%;
+}
+.loginDiv{
+	max-width: 300px;
+	margin: 0 auto;
+}

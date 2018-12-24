@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cp.blog.dao.admin.WriteDao">
+  	<select id="getSortList" resultType="com.cp.blog.bean.Sort">
+  		SELECT
+			id,
+			name
+		FROM
+			sort
+  	</select>
+  	
+  	<select id="getLabel" parameterType="Integer" resultType="com.cp.blog.bean.Label">
+  		SELECT
+			id,
+			name
+		FROM
+			label
+		WHERE
+			sortId = #{sortId};
+  	</select>
+  	
+  	<insert id="addLabel" parameterType="com.cp.blog.bean.Label"  flushCache="true">
+  		INSERT INTO
+			label(
+				sortId,
+				name
+				)
+			VALUE(
+				#{sortId},
+				#{name}
+			)
+  	</insert>
+  	
+  	<insert id="writeDo" parameterType="com.cp.blog.bean.Page" flushCache="true">
+  		INSERT INTO
+			page(
+				title,
+				time,
+				author,
+				labelId,
+				mainText,
+				textNumber,
+				viewNumber,
+				status
+			)VALUE(
+				#{title},
+				#{time},
+				#{author},
+				#{labelId},
+				#{mainText},
+				#{textNumber},
+				0,
+				0
+			)
+  	</insert>
+  </mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cp.blog.dao.admin.CalendarDao">
+  		<insert id="add"  parameterType="com.cp.blog.bean.Calendar"  flushCache="true">
+		INSERT INTO
+			calendar(
+				id,
+				title,
+				start,
+				end,
+				color
+			)VALUE(
+				#{id},
+				#{title},
+				#{start},
+				#{end},
+				#{color}
+			)
+  		</insert>
+  		
+  		<select id="getMsg"  resultType="com.cp.blog.bean.Calendar">
+  				SELECT
+					id,
+					title,
+					start,
+					end,
+					color
+				FROM
+					calendar
+  		</select>
+  		<delete id="delete" parameterType="String">
+  			DELETE
+			FROM
+				calendar
+			WHERE
+				id = #{id}
+  		</delete>
+  		<update id="upData" parameterType="com.cp.blog.bean.Calendar">
+  			UPDATE
+  				calendar
+  			SET
+  				title = #{title}
+  			WHERE
+  				id = #{id}
+  		</update>
+  		
+  </mapper>

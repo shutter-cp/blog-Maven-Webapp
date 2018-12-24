@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cp.blog.dao.admin.IndexDao">
+  		<select id="getBlogWrite" resultType="Integer" parameterType="hashmap">
+	  		SELECT
+				COUNT(id)
+			FROM
+				page
+			WHERE
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%m') = #{month}
+			AND
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%y') = #{year}
+  		</select>
+  		
+  		<select id="getBlogCom" resultType="Integer"  parameterType="hashmap">
+  			SELECT
+				COUNT(id)
+			FROM
+				`comment`
+			WHERE
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%m') = #{month}
+			AND
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%y') = #{year}
+  		</select>
+  		
+  		<select id="getBlogRead" resultType="Integer" parameterType="hashmap">
+  			SELECT
+				COUNT(id)
+			FROM
+				`logs`
+			WHERE
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%m') = #{month}
+			AND
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%y') = #{year}
+  		</select>
+  		
+  		<select id="getSumNub" resultType="Integer" parameterType="hashmap">
+  			SELECT
+				SUM(textNumber)
+			FROM
+				page
+			WHERE
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%d') = #{begainDay}
+			AND
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%y') = #{begainYear}
+  		</select>
+  		
+  		<select id="getWriteTime" resultType="Integer"  parameterType="hashmap">
+  			SELECT
+				COUNT(id)
+			FROM
+				page
+			WHERE
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%H')  &gt;= #{begainDay}
+			AND
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%H')  &lt;  #{endDay}
+  		</select>
+  		
+  		<select id="getNub"  resultType="Integer" parameterType="hashmap">
+  			SELECT
+				COUNT(id)
+			FROM
+				page
+			WHERE
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%y%m%d')  &gt;= #{begainDay}
+			AND
+				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%y%m%d')  &lt;  #{endDay}
+  		</select>
+  		
+  		<select id="getPageList" resultType="com.cp.blog.bean.Page">
+  			SELECT
+  				id,
+  				title,
+  				author,
+  				time,
+  				viewNumber
+  			FROM
+  				page
+  			order by id desc
+  			LIMIT 0,7
+  		</select>
+  </mapper>

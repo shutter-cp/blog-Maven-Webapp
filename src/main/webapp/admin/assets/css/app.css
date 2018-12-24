@@ -8,6 +8,12 @@ header {
   z-index: 1200;
   position: relative;
 }
+.am-icon-list:before{
+	line-height: 55px;	
+}
+.am-icon-cog:before{
+	line-height: 40px;	
+}
 .tpl-header-logo {
   width: 240px;
   height: 57px;
@@ -1909,4 +1915,10 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
     top: 112px;
     right: 0;
   }
+}
+.am-icon-list:before{
+	line-height: 55px;	
+}
+.am-icon-cog:before{
+	line-height: 40px;	
 }

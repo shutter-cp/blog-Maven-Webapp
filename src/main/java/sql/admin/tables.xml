@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cp.blog.dao.admin.TablesDao">
+  	<select id="getUserList"  parameterType="Integer" resultType="com.cp.blog.bean.User">
+  		SELECT
+			id,
+			username,
+			email,
+			status
+		FROM
+			`user`
+		LIMIT #{no},10
+  	</select>
+  	
+  	<select id="getUserNub" resultType="Integer">
+		SELECT
+			COUNT(id) nub
+		FROM
+			`user`
+  	</select>
+  	
+  	<select id="getComList" parameterType="Integer" resultType="com.cp.blog.bean.my.AdminComm">
+		SELECT
+			`comment`.id,
+			mainText,
+			pageId,
+			reText,
+			username,
+			`comment`.status
+		FROM `comment` 
+			INNER JOIN `user` 
+			ON `comment`.userId = `user`.id
+		LIMIT #{no},10
+  	</select>
+  	
+  	<select id="getComNub" resultType="Integer">
+	  	SELECT
+			COUNT(id) nub
+		FROM
+			`comment`
+  	</select>
+  	
+  	<select id="getPageList"  parameterType="Integer"  resultType="com.cp.blog.bean.Page">
+	  	  	SELECT
+				id,
+				title,
+				time,
+				author,
+				status
+			FROM
+				`page`
+			LIMIT #{no},10
+  	</select>
+  	
+  	<select id="getPageNub" resultType="Integer">
+  		SELECT
+			COUNT(id) nub
+		FROM
+			`page`
+  	</select>
+  	
+  	<update id="userUp" parameterType="com.cp.blog.bean.User">
+  		UPDATE
+			`user`
+		SET
+			`status` = #{status}
+		WHERE
+			id = #{id}
+  	</update>
+  	
+  	<delete id="userDelete" parameterType="Integer">
+  		DELETE
+		FROM
+			`user`
+		WHERE
+			id = #{id}
+  	</delete>
+  	
+  	  	<update id="commUp" parameterType="com.cp.blog.bean.Comment">
+  		UPDATE
+			`comment`
+		SET
+			`status` = #{status}
+		WHERE
+			id = #{id}
+  	</update>
+  	
+  	<delete id="commDelete" parameterType="Integer">
+  		DELETE
+		FROM
+			`comment`
+		WHERE
+			id = #{id}
+  	</delete>
+  	
+  	<update id="pageUp" parameterType="com.cp.blog.bean.Page">
+  		UPDATE
+			`page`
+		SET
+			`status` = #{status}
+		WHERE
+			id = #{id}
+  	</update>
+  	
+  	<delete id="pageDelete" parameterType="Integer">
+  		DELETE
+		FROM
+			`page`
+		WHERE
+			id = #{id}
+  	</delete>
+  	
+  	<update id="reTextSubmt" parameterType="com.cp.blog.bean.Page">
+  		UPDATE
+			`comment`
+		SET
+			`reText` = #{reText}
+		WHERE
+			id = #{id}
+  	</update>
+  	
+  	<select id="getPage" parameterType="Integer" resultType="com.cp.blog.bean.my.UpDateWrite">
+	  	SELECT
+			title,
+			author,
+			time,
+			label.sortId,
+			sort.`name` sortName,
+			labelId,
+			label.`name`,
+			mainText
+		FROM
+			page INNER JOIN
+			label INNER JOIN
+			sort
+		ON
+			page.labelId = label.id
+			AND
+			label.sortId = sort.id
+		WHERE
+			page.id = #{id} 
+  	</select>
+  	
+  	<update id="upDateDo" parameterType="com.cp.blog.bean.Page">
+  		UPDATE
+			`page`
+		SET
+			title = #{title},
+			time = #{time},
+			author = #{author},
+			labelId = #{labelId},
+			mainText = #{mainText},
+			textNumber = #{textNumber}
+		WHERE
+			id = #{id}
+  	</update>
+  </mapper>
