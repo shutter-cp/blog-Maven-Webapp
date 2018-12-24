@@ -212,11 +212,11 @@ public class IndexService {
 		// TODO Auto-generated method stub
 		List<Map<String, Integer>> time = new ArrayList<>();
 		Map<String, Integer> map1 = new HashMap<String, Integer>();
-		map1.put("begainDay", 00);
-		map1.put("endDay", 06);
+		map1.put("begainDay", 0);
+		map1.put("endDay", 6);
 		time.add(map1);
 		Map<String, Integer> map2 = new HashMap<String, Integer>();
-		map2.put("begainDay", 06);
+		map2.put("begainDay", 6);
 		map2.put("endDay", 12);
 		time.add(map2);
 		Map<String, Integer> map3 = new HashMap<String, Integer>();
@@ -229,10 +229,7 @@ public class IndexService {
 		time.add(map4);
 		
 		List<Integer> blogRScale = new ArrayList<>();
-		
 		Integer sum = 0;
-		
-		//Integer rScale = indexDao.getWriteTime(map1);
 		
 		for (Map<String, Integer> map : time) {
 			Integer rScale = indexDao.getWriteTime(map);
@@ -242,7 +239,7 @@ public class IndexService {
 		
 		if (sum>0) {
 			for (int i = 0; i < 4; i++) {
-				blogRScale.set(i, (blogRScale.get(i)/sum)*100);
+				blogRScale.set(i, (int) (((blogRScale.get(i)+0.0)/sum)*100));
 			}
 		}
 		

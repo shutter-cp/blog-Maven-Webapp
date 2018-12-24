@@ -85,6 +85,7 @@ public class IndexWeb {
 		andView.addObject("pageList", pageList);
 		andView.addObject("nub", nub);
 		
+		
 		andView.setViewName("admin/index");
 		return andView;
 	}

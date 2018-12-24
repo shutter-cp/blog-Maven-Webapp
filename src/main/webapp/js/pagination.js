@@ -25,11 +25,11 @@ pageInaTion = function(htmlsl,htmlsr,objs,steps,numbers){
 		var pageHtml = '';
 		if(numbers>=steps){
 			for(;i<=steps;i++){
-				pageHtml += htmlsl+ i+ htmlsr;
+				pageHtml += htmlsl+i+');">'+ i+ htmlsr;
 			}
 		}else{
 			for(;i<=numbers;i++){
-				pageHtml += htmlsl+ i+ htmlsr;
+				pageHtml += htmlsl+i+');">'+ i+ htmlsr;
 			}
 		}
 		$(objs).html("");
@@ -44,7 +44,7 @@ pageInaTion = function(htmlsl,htmlsr,objs,steps,numbers){
 			if(i>steps){
 				i = i - temp -steps;
 				for(var y=i;i<y+steps;i++){
-					pageHtml += htmlsl+ i+ htmlsr;
+					pageHtml += htmlsl+i+');">'+ i+ htmlsr;
 				}
 				$(objs).html("");
 				$(objs).html(pageHtml);
@@ -53,7 +53,7 @@ pageInaTion = function(htmlsl,htmlsr,objs,steps,numbers){
 			if((i-(steps*2))>0){
 				i = i-10;
 				for(var y=i;i<y+steps;i++){
-					pageHtml += htmlsl+ i+ htmlsr;
+					pageHtml += htmlsl+i+');">'+ i+ htmlsr;
 				}
 				$(objs).html("");
 				$(objs).html(pageHtml);
@@ -66,13 +66,13 @@ pageInaTion = function(htmlsl,htmlsr,objs,steps,numbers){
 		pageHtml = '';
 		if(i+steps<=numbers){
 			for(var y=i;i<y+steps;i++){
-				pageHtml += htmlsl+ i+ htmlsr;
+				pageHtml += htmlsl+i+');">'+ i+ htmlsr;
 			}
 			$(objs).html("");
 			$(objs).html(pageHtml);
 		}else if(i+steps>numbers&&i-1<numbers){
 			for(;i<=numbers;i++){
-				pageHtml += htmlsl+ i+ htmlsr;
+				pageHtml += htmlsl+i+');">'+ i+ htmlsr;
 			}
 			//i--;
 			$(objs).html("");

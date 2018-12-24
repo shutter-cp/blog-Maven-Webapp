@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.cp.blog.dao.BlogIndexDao">
+  		<select id="getPageList" resultType="com.cp.blog.bean.Page" parameterType="hashmap">
+  				SELECT
+					page.id,
+					title
+				FROM
+					page INNER JOIN
+					label
+				WHERE
+					page.labelId = label.id
+				AND
+					label.sortId = #{sortId}
+				ORDER BY page.id DESC
+				LIMIT #{no},12
+  		</select>
+  		<select id="getPageNo" resultType="Integer" parameterType="Integer">
+		  		SELECT
+					COUNT(page.id)
+				FROM
+					page INNER JOIN
+					label
+				WHERE
+					page.labelId = label.id
+				AND
+					label.sortId = #{labelId}
+  		</select>
+  		
+  		<select id="getLabelList" resultType="com.cp.blog.bean.Label" parameterType="Integer">
+		  		SELECT
+					id,
+					`name`
+				FROM
+					label
+				WHERE
+					sortId = #{sortId}
+  		</select>
+  		
+  		<select id="getLPageList" resultType="com.cp.blog.bean.Page" parameterType="Integer"> 
+  				SELECT
+					id,
+					title
+				FROM
+					page
+				WHERE
+					labelId = #{id}
+				ORDER BY id DESC
+  		</select>
+  </mapper>
