@@ -245,22 +245,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             },
             radar: [{
                     indicator: [
-                        { text: '苹果', max: 100 },
-                        { text: '安卓', max: 100 },
-                        { text: '电脑', max: 100 },
-                        { text: '其他未知', max: 100 }
+                        { text: '苹果' },
+                        { text: '安卓'},
+                        { text: 'WINDOWS' },
+                        { text: '其他未知'}
                     ],
                     center: ['25%', '50%'],
                     radius: 80
                 },
                 {
                     indicator: [
-                        { text: '百度浏览器', max: 100 },
-                        { text: '谷歌浏览器', max: 100 },
-                        { text: 'qq浏览器', max: 100 },
-                        { text: 'uc浏览器', max: 100 },
-                        { text: '360浏览器', max: 100 },
-                        { text: 'IE浏览器', max: 100 }
+                        { text: 'Google' },
+                        { text: 'Firefox' },
+                        { text: 'IE&ED' },
+                        { text: 'Opera'},
+                        { text: 'Safari' },
+                        { text: 'Other'}
                     ],
                     radius: 80,
                     center: ['75%', '50%'],
@@ -273,7 +273,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     },
                     itemStyle: { normal: { areaStyle: { type: 'default' } } },
                     data: [{
-                        value: [60, 73, 85, 40],
+                        value: [${deviceList[0] }, 
+		                        ${deviceList[1] }, 
+		                        ${deviceList[2] }, 
+		                        ${deviceList[3] }],
                         name: '设备浏览量'
                     }]
                 },
@@ -281,7 +284,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     type: 'radar',
                     radarIndex: 1,
                     data: [{
-                            value: [85, 90, 90, 95, 95, 10],
+                            value: [${browserList[0] }, 
+		                            ${browserList[1] }, 
+		                            ${browserList[2] }, 
+		                            ${browserList[3] }, 
+		                            ${browserList[4] }, 
+		                            ${browserList[5] }],
                             name: '软件浏览量'
                         }
                     ]

@@ -195,19 +195,19 @@ public class CpDate {
 	}
 	
 	public Integer getWeekNub(String strWeek){
-		if (strWeek.equals("星期一")) {
+		if (strWeek.equals("星期一")||strWeek.equals("Mon")) {
 			return 1;
-		}else if (strWeek.equals("星期二")) {
+		}else if (strWeek.equals("星期二")||strWeek.equals("Tue")) {
 			return 2;
-		}else if (strWeek.equals("星期三")) {
+		}else if (strWeek.equals("星期三")||strWeek.equals("Wed")) {
 			return 3;
-		}else if (strWeek.equals("星期四")) {
+		}else if (strWeek.equals("星期四")||strWeek.equals("Thu")) {
 			return 4;
-		}else if (strWeek.equals("星期五")) {
+		}else if (strWeek.equals("星期五")||strWeek.equals("Fri")) {
 			return 5;
-		}else if (strWeek.equals("星期六")) {
+		}else if (strWeek.equals("星期六")||strWeek.equals("Sat")) {
 			return 6;
-		}else if (strWeek.equals("星期日")) {
+		}else if (strWeek.equals("星期日")||strWeek.equals("Sun")) {
 			return 7;
 		}
 		return null;

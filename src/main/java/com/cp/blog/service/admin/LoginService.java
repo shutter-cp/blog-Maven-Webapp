@@ -52,9 +52,7 @@ public class LoginService {
 		
 		Admin rAdmin = loginDao.login(admin);
 		
-		
 		re.getSession().setAttribute("admin", rAdmin);
-		
 		return new ModelAndView("redirect:/admin/index");
 	}
 

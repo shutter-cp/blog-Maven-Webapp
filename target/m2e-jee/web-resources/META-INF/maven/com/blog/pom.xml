@@ -195,8 +195,17 @@
 		    <artifactId>ezmorph</artifactId>
 		    <version>1.0.6</version>
 		</dependency>
-	
 	<!-- json解析 -->
+	
+	<!--  获取浏览设备 -->
+	<!-- https://mvnrepository.com/artifact/eu.bitwalker/UserAgentUtils -->
+		<dependency>
+		    <groupId>eu.bitwalker</groupId>
+		    <artifactId>UserAgentUtils</artifactId>
+		    <version>1.21</version>
+		</dependency>
+
+	
     
   </dependencies>
  

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.cp.blog.bean.Comment;
 import com.cp.blog.bean.Label;
+import com.cp.blog.bean.Logs;
 import com.cp.blog.bean.Page;
 import com.cp.blog.bean.User;
 import com.cp.blog.bean.my.IndexCom;
@@ -276,6 +277,36 @@ public class BlogIndexService {
 	public List<Page> getPageListFond(String fondMsg) {
 		// TODO Auto-generated method stub
 		return blogIndexDao.getPageListFond("%"+fondMsg+"%");
+	}
+
+	/**
+	 * (这里用一句话描述这个方法的作用)
+	 * 方法名：addVersion
+	 * 创建人：chenPeng
+	 * 时间：2018年12月26日-上午12:40:12 
+	 * 手机:17673111810
+	 * @param logs void
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	public void addVersion(Logs logs) {
+		// TODO Auto-generated method stub
+		blogIndexDao.addVersion(logs);
+	}
+
+	/**
+	 * (这里用一句话描述这个方法的作用)
+	 * 方法名：addViewNub
+	 * 创建人：chenPeng
+	 * 时间：2018年12月26日-上午2:26:46 
+	 * 手机:17673111810
+	 * @param pageId void
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	public void addViewNub(Integer pageId) {
+		// TODO Auto-generated method stub
+		blogIndexDao.addViewNub(pageId);
 	}
 
 }

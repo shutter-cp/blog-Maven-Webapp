@@ -8,7 +8,10 @@
  */
 package com.cp.blog.dao.admin;
 
+import java.util.List;
 import java.util.Map;
+
+import com.cp.blog.bean.Logs;
 
 /**
  * 
@@ -71,5 +74,17 @@ public interface ChartDao {
 	 * @since  1.0.0
 	*/
 	Integer getWirte(Integer i);
+
+	/**
+	 * (这里用一句话描述这个方法的作用)
+	 * 方法名：getLogsList
+	 * 创建人：chenPeng
+	 * 时间：2018年12月26日-上午12:55:30 
+	 * 手机:17673111810
+	 * @return List<Logs>
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	List<Logs> getLogsList();
 	
 }

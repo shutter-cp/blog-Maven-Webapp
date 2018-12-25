@@ -52,6 +52,7 @@ public class IndexWeb {
 		String week = cpDate.getTimeFormat("E");
 		Integer day = Integer.parseInt(cpDate.getTimeFormat("dd"));
 		
+		
 		//得到本月博客量
 		Integer blogWrite = indexService.getBlogWrite(year,month);
 		//得到上月博客量

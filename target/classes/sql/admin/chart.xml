@@ -51,4 +51,13 @@
 			AND
 				DATE_FORMAT(STR_TO_DATE(time,'%Y-%m-%d %T'),'%H') &lt;  (#{i}+1)*2
   		</select>
+  		
+  		<select id="getLogsList" resultType="com.cp.blog.bean.Logs">
+  			SELECT
+				ip,
+				device,
+				browser
+			FROM
+				`logs`
+  		</select>
   </mapper>

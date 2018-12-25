@@ -16,6 +16,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cp.blog.bean.Logs;
 import com.cp.blog.dao.admin.ChartDao;
 
 /**
@@ -147,5 +148,20 @@ public class ChartSerivce {
 			wirteList.add(chartDao.getWirte(i));
 		}
 		return wirteList;
+	}
+
+	/**
+	 * (这里用一句话描述这个方法的作用)
+	 * 方法名：getLogsList
+	 * 创建人：chenPeng
+	 * 时间：2018年12月26日-上午12:55:16 
+	 * 手机:17673111810
+	 * @return List<Logs>
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	public List<Logs> getLogsList() {
+		// TODO Auto-generated method stub
+		return chartDao.getLogsList();
 	}
 }

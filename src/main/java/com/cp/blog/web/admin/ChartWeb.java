@@ -15,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cp.blog.bean.Logs;
 import com.cp.blog.service.admin.ChartSerivce;
+
 
 /**
  * 
@@ -49,6 +51,47 @@ public class ChartWeb {
 		//得到创造数据
 		List<Integer> wirteList = chartSerivce.getWirteList();
 		
+		//得到访问记录
+		List<Logs> logsList = chartSerivce.getLogsList();
+		
+		//记录设备
+		Integer[] deviceList = {0,0,0,0};
+		//记录浏览器
+		Integer[] browserList = {0,0,0,0,0,0};
+		
+		for (Logs logs : logsList) {
+			String browse = logs.getBrowser();
+			String device = logs.getDevice();
+			System.out.println(browse);
+			System.out.println(device);
+			if(browse == null){
+				browserList[5]++;
+			}else if(browse.equals("CHROME")) {
+				browserList[0]++;
+			}else if(browse.equals("FIREFOX")){
+				browserList[1]++;
+			}else if(browse.equals("IE")||browse.equals("EDGE")){
+				browserList[2]++;
+			}else if(browse.equals("OPERA")){
+				browserList[3]++;
+			}else if(browse.equals("SAFARI")){
+				browserList[4]++;
+			}else{
+				browserList[5]++;
+			}
+			
+			if (device == null) {
+				deviceList[3]++;
+			}else if(device.equals("IPHONE")) {
+				deviceList[0]++;
+			}else if(device.equals("ANDROID")){
+				deviceList[1]++;
+			}else if(device.equals("WINDOWS")){
+				deviceList[2]++;
+			}else{
+				deviceList[3]++;
+			}
+		}
 		
 		andView.addObject("photoList", photoList);
 		andView.addObject("codeList", codeList);
@@ -57,6 +100,9 @@ public class ChartWeb {
 		andView.addObject("viewList", viewList);
 		andView.addObject("comList", comList);
 		andView.addObject("wirteList", wirteList);
+		
+		andView.addObject("browserList", browserList);
+		andView.addObject("deviceList", deviceList);
 		
 		andView.setViewName("admin/chart");
 		return andView;

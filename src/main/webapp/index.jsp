@@ -18,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="icon" type="image/png" href="${basePath }/img/logo.gif">
 	<link rel="stylesheet" href="${basePath }/css/semantic.min.css" />
 	<link rel="stylesheet" type="text/css" href="${basePath }/css/buttons.css"/>
 	<link rel="stylesheet" type="text/css" href="${basePath }/css/component.css"/>

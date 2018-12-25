@@ -184,4 +184,32 @@
 				title LIKE #{string}
 			ORDER BY page.id DESC
   		</select>
+  		
+  		<insert id="addVersion" parameterType="com.cp.blog.bean.Logs">
+  			INSERT INTO
+				logs(
+					ip,
+					time,
+					device,
+					browser,
+					pageId,
+					allMsg
+				)
+				VALUE(
+					#{ip},
+					NOW(),
+					#{device},
+					#{browser},
+					#{pageId},
+					#{allMsg}
+				)
+  		</insert>
+  		<update id="addViewNub" parameterType="Integer">
+  				UPDATE
+					`page`
+				SET
+					viewNumber = viewNumber+1
+				WHERE
+					id = #{pageId}
+  		</update>
   </mapper>

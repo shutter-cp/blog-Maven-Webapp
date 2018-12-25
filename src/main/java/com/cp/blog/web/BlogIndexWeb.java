@@ -21,11 +21,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cp.blog.bean.Label;
+import com.cp.blog.bean.Logs;
 import com.cp.blog.bean.Page;
 import com.cp.blog.bean.User;
 import com.cp.blog.bean.my.IndexCom;
 import com.cp.blog.service.BlogIndexService;
 
+import eu.bitwalker.useragentutils.Browser;
+import eu.bitwalker.useragentutils.OperatingSystem;
+import eu.bitwalker.useragentutils.UserAgent;
 import net.sf.json.JSONArray;
 
 /**
@@ -43,6 +47,54 @@ public class BlogIndexWeb {
 	@Autowired
 	private HttpServletRequest re;
 	
+	public void addVersion(Integer pageId){
+		Logs logs = new Logs();
+		
+		String agentStr = re.getHeader("user-agent");
+		UserAgent agent = UserAgent.parseUserAgentString(agentStr);
+		Browser browser = agent.getBrowser();
+		OperatingSystem os = agent.getOperatingSystem();
+		/**
+		 * browser
+		 */
+		logs.setBrowser(browser.getGroup().toString());
+		/**
+		 * allMSG 
+		 */
+		logs.setAllMsg(agentStr);
+		/**
+		 * device
+		 */
+		logs.setDevice(os.getGroup().toString());
+		
+		logs.setPageId(pageId);
+		/**
+		 * ip
+		 */
+		String fromSource = "X-Real-IP";
+		String ip = re.getHeader("X-Real-IP");
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+		ip = re.getHeader("X-Forwarded-For");
+			fromSource = "X-Forwarded-For";
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+		ip = re.getHeader("Proxy-Client-IP");
+			fromSource = "Proxy-Client-IP";
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+		ip = re.getHeader("WL-Proxy-Client-IP");
+			fromSource = "WL-Proxy-Client-IP";
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+		ip = re.getRemoteAddr();
+			fromSource = "request.getRemoteAddr";
+		}
+		logs.setIp(ip);
+		
+		blogIndexService.addVersion(logs);
+		blogIndexService.addViewNub(pageId);
+	}
+	
 	/**
 	 * 初始化页面
 	 * 方法名：initIndex
@@ -55,6 +107,9 @@ public class BlogIndexWeb {
 	 */
 	@GetMapping("/index")
 	public ModelAndView initIndex(){
+		
+		addVersion(1);
+		
 		ModelAndView andView = new ModelAndView();
 		//拿到部分页面
 		List<Page> pageList = blogIndexService.getPageList(1,1);
@@ -89,6 +144,7 @@ public class BlogIndexWeb {
 	
 	@GetMapping("index/page/{no}")
 	public ModelAndView getIndex(@PathVariable Integer no){
+		addVersion(no);
 		ModelAndView andView = new ModelAndView();
 		//拿到部分页面
 		List<Page> pageList = blogIndexService.getPageList(1,1);
@@ -297,6 +353,7 @@ public class BlogIndexWeb {
 	@PostMapping(value="/index/page",produces = "application/String; charset=utf-8")
 	@ResponseBody
 	public String getPage(Integer pageId){
+		addVersion(pageId);
 		re.getSession().setAttribute("pageId", pageId);
 		JSONArray json = new JSONArray();
 		JSONArray page = new JSONArray();

@@ -34,15 +34,16 @@
 		
 		
 	<!-- 登陆拦截器 -->
-<!-- 	<mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**"/>
 			<mvc:mapping path="/admin/**/*"/>
-			<mvc:exclude-mapping path="/admin/login"/>
+			<mvc:exclude-mapping path="/admin/assets/**"/>
+			<mvc:exclude-mapping path="/admin/assets/**/*"/>
 			<mvc:exclude-mapping path="/admin/loginDo"/>
-			<bean class="com.elite.core.AdminLoginCore"></bean>
+			<bean class="com.cp.blog.core.LoginCore"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors> 
 	
 	
 	<!-- 文件上传 -->

@@ -23,6 +23,14 @@ public class Logs {
 	private String device;
 	private String browser;
 	private Integer pageId;
+	private String allMsg;
+	
+	public String getAllMsg() {
+		return allMsg;
+	}
+	public void setAllMsg(String allMsg) {
+		this.allMsg = allMsg;
+	}
 	public Integer getId() {
 		return id;
 	}

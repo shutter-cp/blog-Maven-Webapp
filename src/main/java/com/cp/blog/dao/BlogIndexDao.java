@@ -13,6 +13,7 @@ import java.util.Map;
 
 import com.cp.blog.bean.Comment;
 import com.cp.blog.bean.Label;
+import com.cp.blog.bean.Logs;
 import com.cp.blog.bean.Page;
 import com.cp.blog.bean.User;
 import com.cp.blog.bean.my.IndexCom;
@@ -191,5 +192,29 @@ public interface BlogIndexDao {
 	 * @since  1.0.0
 	*/
 	List<Page> getPageListFond(String string);
+
+	/**
+	 * (这里用一句话描述这个方法的作用)
+	 * 方法名：addVersion
+	 * 创建人：chenPeng
+	 * 时间：2018年12月26日-上午12:40:30 
+	 * 手机:17673111810
+	 * @param logs void
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	void addVersion(Logs logs);
+
+	/**
+	 * (这里用一句话描述这个方法的作用)
+	 * 方法名：addViewNub
+	 * 创建人：chenPeng
+	 * 时间：2018年12月26日-上午2:27:02 
+	 * 手机:17673111810
+	 * @param pageId void
+	 * @exception 
+	 * @since  1.0.0
+	*/
+	void addViewNub(Integer pageId);
 	
 }
