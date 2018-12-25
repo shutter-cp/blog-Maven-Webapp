@@ -67,8 +67,10 @@ var view = function(){
 		//响应手机
 		if(tt!=windwWidth){
 			if(windwWidth<700){
+				//alert(1);
 				phoneWind();
 			}else{
+				//alert(2);
 				wind();
 			}
 		}
@@ -98,11 +100,11 @@ loginHtml = '<i class="close icon"></i>'+
 			'			<form class="ui form" id="loginForm">'+
 			'				<div class="field">'+
 			'					<label>用户名</label>'+
-			'					<input type="text" name="first-name" placeholder="用户名">'+
+			'					<input id="lUserName" type="text" name="f" placeholder="用户名">'+
 			'				</div>'+
 			'				<div class="field">'+
 			'					<label>密码</label>'+
-			'					<input type="text" name="last-name" placeholder="密码">'+
+			'					<input id="lPassWord" type="text" name="last-name" placeholder="密码">'+
 			'				</div>'+
 			'			</form>'+
 			'		</div>'+
@@ -112,7 +114,7 @@ loginHtml = '<i class="close icon"></i>'+
 			'	<div class="ui  button" onclick="addForm();">'+
 			'		注册'+
 			'	</div>'+
-			'	<div class="ui green right labeled icon button">'+
+			'	<div onclick="login();" class="ui green right labeled icon button">'+
 			'		登录'+
 			'		<i class="checkmark icon"></i>'+
 			'	</div>'+
@@ -127,19 +129,19 @@ addHtml = '<i class="close icon"></i>'+
 			'			<form class="ui form" id="loginForm">'+
 			'				<div class="field">'+
 			'					<label>用户名</label>'+
-			'					<input type="text" name="first-name" placeholder="用户名">'+
+			'					<input id="aUserName" type="text" name="first-name" placeholder="用户名">'+
 			'				</div>'+
 			'				<div class="field">'+
 			'					<label>密码</label>'+
-			'					<input type="text" name="last-name" placeholder="密码">'+
+			'					<input id="aPassWord" type="text" name="last-name" placeholder="密码">'+
 			'				</div>'+
 			'				<div class="field">'+
 			'					<label>再次输入密码</label>'+
-			'					<input type="text" name="last-name" placeholder="再次输入密码">'+
+			'					<input id="aPassWords" type="text" name="last-name" placeholder="再次输入密码">'+
 			'				</div>'+
 			'				<div class="field">'+
 			'					<label>email</label>'+
-			'					<input type="text" name="last-name" placeholder="email">'+
+			'					<input id="aEmail" type="text" name="last-name" placeholder="email">'+
 			'				</div>'+
 			'			</form>'+
 			'		</div>'+
@@ -149,7 +151,7 @@ addHtml = '<i class="close icon"></i>'+
 			'	<div class="ui button" onclick="loginForm();">'+
 			'		登录'+
 			'	</div>'+
-			'	<div class="ui green right labeled icon button">'+
+			'	<div onclick="addUser()" class="ui green right labeled icon button">'+
 			'		注册'+
 			'		<i class="checkmark icon"></i>'+
 			'	</div>'+

@@ -15,12 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cp.blog.bean.Label;
 import com.cp.blog.bean.Page;
+import com.cp.blog.bean.User;
+import com.cp.blog.bean.my.IndexCom;
 import com.cp.blog.service.BlogIndexService;
 
 import net.sf.json.JSONArray;
@@ -59,8 +62,14 @@ public class BlogIndexWeb {
 		Integer pageNo = blogIndexService.getPageNo(1);
 		//拿到标签
 		List<Label> labelList = blogIndexService.getLabelList(1);
+		//拿到首页内容
+		Page page = blogIndexService.getPage(1);
+		//得到评论
+		List<IndexCom> commentList =  blogIndexService.getCommentList(1);
+		
 		
 		re.getSession().setAttribute("sortId", 1);
+		re.getSession().setAttribute("pageId", 1);
 		
 		if ((int)pageNo%12 != 0) {
 			pageNo = pageNo/12;
@@ -71,10 +80,47 @@ public class BlogIndexWeb {
 		andView.addObject("pageNo", pageNo);
 		andView.addObject("pageList", pageList);
 		andView.addObject("labelList", labelList);
+		andView.addObject("page", page);
+		andView.addObject("commentList", commentList);
 		
 		andView.setViewName("index");
 		return andView;
 	}
+	
+	@GetMapping("index/page/{no}")
+	public ModelAndView getIndex(@PathVariable Integer no){
+		ModelAndView andView = new ModelAndView();
+		//拿到部分页面
+		List<Page> pageList = blogIndexService.getPageList(1,1);
+		//拿到页码
+		Integer pageNo = blogIndexService.getPageNo(1);
+		//拿到标签
+		List<Label> labelList = blogIndexService.getLabelList(1);
+		//拿到首页内容
+		Page page = blogIndexService.getPage(no);
+		//得到评论
+		List<IndexCom> commentList =  blogIndexService.getCommentList(no);
+		
+		
+		re.getSession().setAttribute("sortId", 1);
+		re.getSession().setAttribute("pageId", no);
+		
+		if ((int)pageNo%12 != 0) {
+			pageNo = pageNo/12;
+			pageNo++;
+		}else{
+			pageNo--;
+		}
+		andView.addObject("pageNo", pageNo);
+		andView.addObject("pageList", pageList);
+		andView.addObject("labelList", labelList);
+		andView.addObject("page", page);
+		andView.addObject("commentList", commentList);
+		
+		andView.setViewName("index");
+		return andView;
+	}
+	
 	
 	/**
 	 * 动态刷标签
@@ -116,21 +162,67 @@ public class BlogIndexWeb {
 		JSONArray json = new JSONArray();
 		//拿到分类
 		Integer sortId = (Integer) re.getSession().getAttribute("sortId");
-		//拿到部分页面
-		List<Page> pageList = blogIndexService.getPageList(sortId,no);
 		
-		for (Page page : pageList) {
-			json.add(page);
+		if (sortId == 7) {
+			//拿到部分页面
+			List<Page> pageList = blogIndexService.getPageLists(no);
+			
+			for (Page page : pageList) {
+				json.add(page);
+			}
+		}else{
+			//拿到部分页面
+			List<Page> pageList = blogIndexService.getPageList(sortId,no);
+			
+			for (Page page : pageList) {
+				json.add(page);
+			}
 		}
 		return json.toString();
 	}
 	
+	/**
+	 * 查询
+	 * 方法名：sort
+	 * 创建人：chenPeng
+	 * 时间：2018年12月25日-下午11:30:30 
+	 * 手机:17673111810
+	 * @param sortId
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	@PostMapping(value="/index/fond",produces = "application/String; charset=utf-8")
+	@ResponseBody
+	public String fond(String fondMsg){
+		JSONArray page = new JSONArray();
+		//拿到部分页面
+		List<Page> pageList = blogIndexService.getPageListFond(fondMsg);
+		
+		for (Page page2 : pageList) {
+			page.add(page2);
+		}
+		return page.toString();
+	}
+	
+	
+	/**
+	 * 点击标题
+	 * 方法名：sort
+	 * 创建人：chenPeng
+	 * 时间：2018年12月25日-下午11:29:59 
+	 * 手机:17673111810
+	 * @param sortId
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
 	@PostMapping(value="/index/sort",produces = "application/String; charset=utf-8")
 	@ResponseBody
 	public String sort(Integer sortId){
 		re.getSession().setAttribute("sortId", sortId);
 		JSONArray json = new JSONArray();
-		if (sortId<=5) {
+		if (sortId<=5||sortId==8) {
 			JSONArray label = new JSONArray();
 			JSONArray page = new JSONArray();
 			JSONArray nub = new JSONArray();
@@ -154,16 +246,141 @@ public class BlogIndexWeb {
 			}else{
 				pageNo--;
 			}
-			
 			nub.add(pageNo);
 			
 			json.add(label);
 			json.add(page);
 			json.add(nub);
+		}else if (sortId == 6) {
+			//拿到标签
+			List<Label> labelList = blogIndexService.getLabelLists();
+			for (Label label : labelList) {
+				json.add(label);
+			}
+		}else if (sortId == 7) {
+			JSONArray page = new JSONArray();
+			JSONArray nub = new JSONArray();
+			//拿到部分页面
+			List<Page> pageList = blogIndexService.getPageLists(1);
+			//拿到页码
+			Integer pageNo = blogIndexService.getPageNos();
+			
+			for (Page page2 : pageList) {
+				page.add(page2);
+			}
+
+			if ((int)pageNo%12 != 0) {
+				pageNo = pageNo/12;
+				pageNo++;
+			}else{
+				pageNo--;
+			}
+			nub.add(pageNo);
+			
+			json.add(page);
+			json.add(nub);
+		}
+		return json.toString();
+	}
+	
+	/**
+	 * 点击页面
+	 * 方法名：getPage
+	 * 创建人：chenPeng
+	 * 时间：2018年12月25日-下午4:35:06 
+	 * 手机:17673111810
+	 * @param pageId
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	@PostMapping(value="/index/page",produces = "application/String; charset=utf-8")
+	@ResponseBody
+	public String getPage(Integer pageId){
+		re.getSession().setAttribute("pageId", pageId);
+		JSONArray json = new JSONArray();
+		JSONArray page = new JSONArray();
+		JSONArray com = new JSONArray();
+		
+		Page pageMsg = blogIndexService.getPage(pageId);
+		List<IndexCom> commentList =  blogIndexService.getCommentList(pageId);
+		
+		page.add(pageMsg);
+		for (IndexCom indexCom : commentList) {
+			com.add(indexCom);
 		}
 		
-		
+		json.add(page);
+		json.add(com);
 		return json.toString();
+	}
+	
+	/**
+	 * 登录
+	 * 方法名：login
+	 * 创建人：chenPeng
+	 * 时间：2018年12月25日-下午6:34:13 
+	 * 手机:17673111810
+	 * @param username
+	 * @param password
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	@PostMapping(value="/login",produces = "application/String; charset=utf-8")
+	@ResponseBody
+	public String login(String username,String password){
+		if (username.equals("")||password.equals("")) {
+			return "error";
+		}
+	 	User user =  blogIndexService.login(username,password);
+	 	if (user!=null) {
+	 		re.getSession().setAttribute("user", user);
+		}else{
+			return "error";
+		}
+		return user.getId()+"";
+	}
+	
+	/**
+	 * 登录
+	 * 方法名：add
+	 * 创建人：chenPeng
+	 * 时间：2018年12月25日-下午6:41:14 
+	 * 手机:17673111810
+	 * @param username
+	 * @param password
+	 * @param email
+	 * @return String
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	@PostMapping(value="/add",produces= "application/String; charset=utf-8")
+	@ResponseBody
+	public String add(String username,String password,String email){
+		if (username.equals("")||password.equals("")||email.equals("")) {
+			return "请将信息填写完整！";
+		}
+	 	
+		return blogIndexService.add(username,password,email);
+	}
+	
+	@PostMapping(value="/user/addCom",produces= "application/String; charset=utf-8")
+	@ResponseBody
+	public String addCom(String comMsg){
+		if (comMsg.equals("")) {
+			return "评论不能为空！";
+		}
+		Integer pageId = (Integer) re.getSession().getAttribute("pageId");
+		Integer userId = ((User)re.getSession().getAttribute("user")).getId();
+		return blogIndexService.addCom(comMsg,pageId,userId);
+	}
+	
+	@PostMapping("/loginOut")
+	@ResponseBody
+	public String loginOut(){
+		re.getSession().setAttribute("user", null);
+		return "success";
 	}
 	
 }

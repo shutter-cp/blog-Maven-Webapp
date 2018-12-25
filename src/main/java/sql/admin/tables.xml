@@ -10,6 +10,7 @@
 			status
 		FROM
 			`user`
+		ORDER BY id DESC
 		LIMIT #{no},10
   	</select>
   	
@@ -31,6 +32,7 @@
 		FROM `comment` 
 			INNER JOIN `user` 
 			ON `comment`.userId = `user`.id
+		ORDER BY id DESC
 		LIMIT #{no},10
   	</select>
   	
@@ -50,6 +52,7 @@
 				status
 			FROM
 				`page`
+			ORDER BY id DESC
 			LIMIT #{no},10
   	</select>
   	

@@ -13,6 +13,8 @@
 					page.labelId = label.id
 				AND
 					label.sortId = #{sortId}
+				AND
+					status = 1
 				ORDER BY page.id DESC
 				LIMIT #{no},12
   		</select>
@@ -24,6 +26,8 @@
 					label
 				WHERE
 					page.labelId = label.id
+				AND
+					status = 1
 				AND
 					label.sortId = #{labelId}
   		</select>
@@ -46,6 +50,138 @@
 					page
 				WHERE
 					labelId = #{id}
+				AND
+					status = 1
 				ORDER BY id DESC
+  		</select>
+  		
+  		<select id="getPage"  resultType="com.cp.blog.bean.Page"  parameterType="Integer">
+				SELECT
+					id,
+					title,
+					time,
+					author,
+					mainText,
+					textNumber,
+					viewNumber
+				FROM
+					page
+				WHERE
+					id = #{pageId}
+				AND
+					status = 1
+  		</select>
+  		
+  		<select id="getComList" resultType="com.cp.blog.bean.my.IndexCom" parameterType="Integer">
+  				SELECT
+					mainText,
+					reText,
+					time times,
+					username
+				FROM
+					`comment` INNER JOIN
+					`user` ON `comment`.userId = `user`.id
+				WHERE
+					pageId = #{pageId}
+				AND
+					user.`status` = 1
+				AND
+					`comment`.`status` = 1
+  		</select>
+  		
+  		<select id="getLabelLists" resultType="com.cp.blog.bean.Label">
+ 				SELECT
+					id,
+					`name`
+				FROM
+					label
+  		</select>
+  		
+  		<select id="getPageLists" resultType="com.cp.blog.bean.Page" parameterType="Integer">
+  				SELECT
+					page.id,
+					title,
+					time
+				FROM
+					page INNER JOIN
+					label
+				WHERE
+					page.labelId = label.id
+				AND
+					status = 1
+				ORDER BY page.id DESC
+				LIMIT #{no},12
+  		</select>
+  		
+  		<select id="getPageNos" resultType="Integer" >
+		  		SELECT
+					COUNT(page.id)
+				FROM
+					page INNER JOIN
+					label
+				WHERE
+					page.labelId = label.id
+				AND
+					status = 1
+  		</select>
+  		<select id="login" resultType="com.cp.blog.bean.User" parameterType="com.cp.blog.bean.User">
+ 				SELECT
+					id,
+					username
+				FROM
+					`user`
+				WHERE
+					`status` = 1
+				AND
+					username = #{username}
+				AND
+					password = #{password}
+  		</select>
+  		
+  		<insert id="add" parameterType="com.cp.blog.bean.User">
+	  		INSERT INTO
+				user(
+					username,
+					password,
+					email,
+					status
+				)
+				VALUE(
+					#{username},
+					#{password},
+					#{email},
+					1
+				)
+  		</insert>
+  		
+  		<insert id="addCom" parameterType="com.cp.blog.bean.Comment">
+  			INSERT INTO
+				comment(
+					mainText,
+					pageId,
+					userId,
+					time,
+					status
+				)
+				VALUE(
+					#{mainText},
+					#{pageId},
+					#{userId},
+					NOW(),
+					0
+				)
+  		</insert>
+  		
+  		<select id="getPageListFond" parameterType="String" resultType="com.cp.blog.bean.Page">
+  			SELECT
+				id,
+				title
+			FROM
+				page 
+			WHERE
+				status = 1
+			AND
+				title LIKE #{string}
+			ORDER BY page.id DESC
   		</select>
   </mapper>
