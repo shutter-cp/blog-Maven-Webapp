@@ -10,6 +10,7 @@ package com.cp.blog.web.admin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -61,7 +62,8 @@ public class EditorUpImgWeb {
             String orgginalFileName = upload.getOriginalFilename();
             //新文件名称
             //String newFileName = UUID.randomUUID().toString() + orgginalFileName;
-            String newFileName =  DigestUtils.md5Digest(upload.getBytes()).toString() + orgginalFileName;
+            //String newFileName =  DigestUtils.md5Digest(upload.getBytes()).toString() + orgginalFileName;
+            String newFileName = UUID.randomUUID().toString() + orgginalFileName;
             //保存路径
             String serverPath = getRealPath() + holder;
  
